@@ -5,9 +5,46 @@ callbacks when they are no longer needed. Create a `Maid`, hand it things that
 need cleanup, then call `clear()` (or `Destroy()`) to release everything at
 once.
 
+## Installation
+
+Add Maid as a Git submodule in your project's `lib` directory:
+
+```bash
+git submodule add https://github.com/TarryRBX/Maid lib/Maid
+```
+
+When cloning a project that already includes Maid, fetch the submodule with:
+
+```bash
+git clone --recurse-submodules <project-url>
+# or, for an existing clone:
+git submodule update --init
+```
+
+### Wiring into `default.project.json`
+
+Rojo maps folders in `lib` to instances in the data model. Add Maid under
+`ReplicatedStorage`:
+
+```json
+{
+  "name": ...,
+  "tree": {
+    "ReplicatedStorage": {
+      "Maid": { "$path": "lib/Maid" },
+      ...
+    },
+    ...
+  }
+}
+```
+
+Maid is then requireable as `ReplicatedStorage.Maid`.
+
 ## Usage
 
 ```lua
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Maid = require(ReplicatedStorage.Maid)
 local maid = Maid.new()
 ```
